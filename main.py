@@ -1,14 +1,19 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from typing import Optional
 
-app = FastAPI()
+app = FastAPI(
+    title="Proyecto usando FastApi",
+    description="Proyecto desarrollando usando HTMX+FastAPI y Jinja2Templates",
+    version="1.0.0"
+)
 templates = Jinja2Templates(directory="templates")
 app.mount("/static" , StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 async def index(request: Request):
-    return templates.TemplateResponse(request, "index.html") #, {"request": request})
+    return templates.TemplateResponse(request, "index.html")
 
 @app.get("/usuarios")
 async def get_usuarios(request: Request):
@@ -18,8 +23,14 @@ async def get_usuarios(request: Request):
         {"usuarios": USUARIOS},
     )
 
+# Endpoint para buscar dentro de la lista de usuarios
 @app.get("/buscar")
-async def buscar(request: Request, q: str = ""):
+async def buscar(
+    request: Request, 
+    q: Optional[str] = ""):
+    """Permite la busqueda dentro del listado de usuarios siempre que cumpla con el criterio establecido
+    - **q**: Parametro opcional con el criterio establecido
+    """
     resultados = [
         usuario for usuario in USUARIOS
         if q.lower() in usuario["nombre"].lower() or q.lower() in usuario["rol"].lower()
