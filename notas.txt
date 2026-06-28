@@ -1,0 +1,8 @@
+https://www.youtube.com/watch?v=0DoFKlqzSCQ
+El frontend que Python merecía: HTMX + FastAPI explicado
+
+# prerequisitos
+pip install fastapi jinja2 aiofiles uvicorn
+
+# iniciar el servidor web
+uvicorn main:app --reload

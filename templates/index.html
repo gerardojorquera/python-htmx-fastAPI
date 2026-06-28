@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMX + FastAPI</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+    /* Oculto por defecto */
+    .htmx-indicator {
+        display: none;
+        align-items: center;
+        gap: 8px;
+        color: red;
+        font-weight: 500;
+    }
+
+    /* Se muestra automáticamente cuando HTMX realiza una petición activa */
+    .htmx-request .htmx-indicator, 
+    .htmx-request.htmx-indicator {
+        display: flex;
+    }
+    </style>
+</head>
+<body>
+    <h1>HTMX + FastAPI</h1>
+    <button hx-get="/usuarios"
+            hx-target="#contenido"
+            hx-indicator="#spinner">Cargar usuarios...</button>
+    
+    <input type="text"
+           name ="q" 
+           placeholder="Ingresa el nombre o rol de usuarios a buscar..."
+           hx-get="/buscar"
+           hx-target="#contenido"
+           hx-trigger="keyup changed delay:300ms"
+           hx-indicator="#spinner" autofocus>
+
+    <div id="spinner" class="htmx-indicator">Cargando...</div>
+    <div id="contenido"></div>
+</body>
+</html>

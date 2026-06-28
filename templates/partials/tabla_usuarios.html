@@ -1,0 +1,23 @@
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre Completo</th>
+            <th>Rol asignado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td>{{usuario.id}}</td>
+                <td>{{usuario.nombre}}</td>
+                <td>{{usuario.rol}}</td>
+            </tr>
+        {% endfor %}
+        {% if not usuarios %}
+            <tr>
+                <td colspan="3">No se encontraron usuarios</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
